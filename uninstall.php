@@ -9,14 +9,14 @@ if ( ! defined( constant_name: 'WP_UNINSTALL_PLUGIN' ) ) {
     die;
 }
 
-class sbrnm_deleta_tabela_de_config {
+class solucoes_users_deleta_tabela_de_config {
     public static function deletar_tabela(): void {
         global $wpdb;
 
-        $wp_sbrnm_users = $wpdb->prefix .'sbrnm_users';
-        $wpdb->query("DROP TABLE IF EXISTS $wp_sbrnm_users");
+        $wp_solucoes_users = $wpdb->prefix .'solucoes_users';
+        $wpdb->query("DROP TABLE IF EXISTS $wp_solucoes_users");
     }
 }
 
-register_uninstall_hook(file: __FILE__, callback: array("sbrnm_deleta_tabela_de_config", "deletar_tabela"));
+solucoes_users_deleta_tabela_de_config::deletar_tabela();
 ?>

@@ -13,19 +13,19 @@ if (! defined(constant_name: 'ABSPATH')) {
     exit; // Exit if accessed directly
 }
 
-class sbrnm_cria_tabela_de_config
+class solucoes_users_tabela_de_config
 {
     public static function criar_tabela(): void
     {
         global $wpdb;
 
-        $wp_sbrnm_users = $wpdb->prefix . 'sbrnm_users';
+        $wp_solucoes_users = $wpdb->prefix . 'solucoes_users';
         $charset_collate = $wpdb->get_charset_collate();
 
-        $sql = "CREATE TABLE $wp_sbrnm_users (ID_USER INT NOT NULL AUTO_INCREMENT, PRIMARY KEY (ID_USER), user_login varchar(60) NOT NULL) $charset_collate;";
+        $sql = "CREATE TABLE $wp_solucoes_users (ID_USER INT NOT NULL AUTO_INCREMENT, PRIMARY KEY (ID_USER), user_login varchar(60) NOT NULL) $charset_collate;";
         require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
         dbDelta($sql);
     }
 }
 
-register_activation_hook(file: __FILE__, callback: array("sbrnm_cria_tabela_de_config", "criar_tabela"));
+register_activation_hook(file: __FILE__, callback: array("solucoes_users_tabela_de_config", "criar_tabela"));
