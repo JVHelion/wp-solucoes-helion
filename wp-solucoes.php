@@ -13,6 +13,8 @@ if (! defined(constant_name: 'ABSPATH')) {
     exit; // Exit if accessed directly
 }
 
+include_once plugin_dir_path(__FILE__) . 'api/cadastra-cliente.php';
+
 class solucoes_users_tabela_de_config
 {
     public static function criar_tabela(): void
@@ -27,5 +29,6 @@ class solucoes_users_tabela_de_config
         dbDelta($sql);
     }
 }
+
 
 register_activation_hook(file: __FILE__, callback: array("solucoes_users_tabela_de_config", "criar_tabela"));
