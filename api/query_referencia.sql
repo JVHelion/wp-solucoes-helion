@@ -14,9 +14,14 @@ SET
   @SOBRENOME = SUBSTRING_INDEX(@NOME_COMPL, ' ', -1);
 
 INSERT INTO wp_users(
-  user_login, user_pass, user_nicename, 
-  user_email, user_url, user_registered, 
-  user_activation_key, user_status, 
+  user_login, 
+  user_pass, 
+  user_nicename, 
+  user_email, 
+  user_url, 
+  user_registered, 
+  user_activation_key, 
+  user_status, 
   display_name
 ) 
 select 
