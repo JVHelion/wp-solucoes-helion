@@ -13,51 +13,56 @@
  * Não posso esquecer de verificar se já existe algum usuário com mesmo nome. Para não dar conflito entre usuários.
  * O mesmo também para o email.
  * 
- * BARALHO, EU TÔ MUITO FERRADO.
+ * EU TÔ MUITO FERRADO.
  */
+
+/**
+ * 
+ * Importa o cadastra-usuario.php
+ * @var mixed $wpdb
+ * 
+ */
+include_once plugin_dir_path(__FILE__) . '../db/cadastra-usuario.php';
 
 /**
  * Cria um endpoint para receber os dados do form
  */
+function endpoint_dados_de_cadastro(WP_REST_Request $request): WP_REST_Response {
+    // Recebe os valores do formulário do Elementor
+    $conteudo_bruto = $request->get_body();
+    parse_str($conteudo_bruto, $conteudo_convertido);
 
-include_once plugin_dir_path(__FILE__) . 'db/cadastra-usuario.php';
+    // Verifica se todos os campos necessários estão presentes
+    if (!isset($conteudo_convertido['fields']['nome_compl']['value']) ||
+        !isset($conteudo_convertido['fields']['email']['value']) ||
+        !isset($conteudo_convertido['fields']['senha']['value']) ||
+        !isset($conteudo_convertido['fields']['lgpd']['value'])) {
+        return rest_ensure_response(array(
+            'message' => 'Campos obrigatórios não preenchidos',
+        ));
+    }
 
+    $nome_completo = sanitize_text_field($conteudo_convertido['fields']['nome_compl']['value']);
+    $email = sanitize_text_field($conteudo_convertido['fields']['email']['value']);
+    $senha = sanitize_text_field($conteudo_convertido['fields']['senha']['value']);
+    $aceite_lgpd = sanitize_text_field($conteudo_convertido['fields']['lgpd']['value']);
 
- function endpoint_dados_de_cadastro():mixed {
-    /**
-     * recebe os valores do formulário do elementor
-     * @var WP_REST_Request $request
-     */
-    $raw_content = $request->get_body();
-    parse_str(string: $raw_content, result: $parsed_data);
-
-
-    /**
-     * Separa os dados
-     * @var mixed $form
-     */
-    $form = $parsed_data['form'];
-    $fields = $parsed_data['fields'];
-    $meta = $parsed_data['meta'];
-
-
-    /**
-     * Acessa os dados
-     * @var mixed $form_id
-     */
-    $form_id = $form['id'];
-    $form_name = $form['name'];
-    $field_name = $fields['name']['value'];
-    $field_email = $fields['email']['value'];
-    $meta_date = $meta['date']['value'];
-
-    /**
-     * 
-     */
-    return rest_ensure_response(array(
-        
-    ))
-
+    if ($aceite_lgpd === 'on') {
+        $resultado = Cadastra_Usuario::insere_nas_tabelas($nome_completo, $email, $senha);
+        if ($resultado) {
+            return rest_ensure_response(array(
+                'message' => 'Usuário criado com sucesso!',
+            ));
+        } else {
+            return rest_ensure_response(array(
+                'message' => 'Erro ao criar usuário',
+            ));
+        }
+    } else {
+        return rest_ensure_response(array(
+            'message' => 'LGPD não aceito',
+        ));
+    }
 }
 
 function registra_rota_de_cadastro(): void {
@@ -68,14 +73,4 @@ function registra_rota_de_cadastro(): void {
 }
 
 add_action('rest_api_init', 'registra_rota_de_cadastro');
-
-
-
-
-// class cria_cliente_devagarzinho_pros_cria {
-//     public static insert_nas_tabelas_wp() {
-//         global $wpdb;
-        
-//     }
-// }
 ?>

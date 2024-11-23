@@ -2,7 +2,7 @@
 /*
  * Plugin Name: WP Soluções
  * Description: Complementos para e-commerce, fazer o que se wp me deixou na mão ¯\_(ツ)_/¯
- * Version: 0.0.1
+ * Version: 0.0.9
  * Requires at least: 6.7
  * Requires at least: 8.1
  * Author: JVHelion
@@ -10,7 +10,7 @@
  */
 
 if (! defined(constant_name: 'ABSPATH')) {
-    exit; // Exit if accessed directly
+    exit; // Sai da página se tentarem acessar o plugin direto pelo diretório
 }
 
 include_once plugin_dir_path(__FILE__) . 'api/cadastra-cliente.php';
