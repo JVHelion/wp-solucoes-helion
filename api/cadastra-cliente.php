@@ -14,6 +14,8 @@
  * O mesmo também para o email.
  * 
  * EU TÔ MUITO FERRADO.
+ * 
+ * Helion do futuro após ter terminado a classe cabulosa do cadastra-cliente, valeu a pena. Ter feito essa bomba. Ultimo comentário antes de apagar tudo no próximo commit
  */
 
 /**

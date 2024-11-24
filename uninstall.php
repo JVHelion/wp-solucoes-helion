@@ -1,5 +1,7 @@
 <?php 
-
+/**
+ * Eu configurei esse uninstall apenas para dropar a tabela wp_solucoes_users, só não vou remover outras linhas de outras tabelas, pois com certeza algo no wordpress vai explodir. Então boa sorte para os inserts feitos durante o desenvolvimento.
+ */
 if ( ! defined( constant_name: 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
