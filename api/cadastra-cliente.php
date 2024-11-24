@@ -50,7 +50,16 @@ function endpoint_dados_de_cadastro(WP_REST_Request $request): WP_REST_Response 
     $aceite_lgpd = sanitize_text_field($conteudo_convertido['fields']['lgpd']['value']);
 
     if ($aceite_lgpd === 'on') {
-        $resultado = Cadastra_Usuario::insere_nas_tabelas(NOME_COMPL: $nome_completo, EMAIL: $email, SENHA: $senha);
+        list($user_id, $user_login, $user_pass) = Cadastra_Usuario::insere_nas_tabelas(NOME_COMPL: $nome_completo, EMAIL: $email, SENHA: $senha);
+
+        $creds = array(
+            'user_login' => $user_login,
+            'user_password' => $user_pass,
+            'remember' => true
+        );
+
+        // Autentica o usuário
+        $usuario = wp_signon($creds, True);
         if ($resultado) {
             return rest_ensure_response(array(
                 'message' => 'Usuário criado com sucesso!',

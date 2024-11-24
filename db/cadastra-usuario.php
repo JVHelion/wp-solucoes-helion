@@ -1,7 +1,14 @@
 <?php
+/**
+ * Eu fiz essa classe cabulosa para inserir um usuário no wordpress através de ódio e raiva.
+ * 
+ * Eu tenho 99% de certeza que deixei algo errado, então boa sorte Helion do futuro na hora de debugar essa delíciosa classe de 220 linhas para achar onde tá o problema.
+ * 
+ * PS. Acho bom começar a olhar com carinho as atualizações do wordpress, pois a probabilidade do wp atualizar e algo quebrar é ALTISSIMO.
+ */
 
 class Cadastra_Usuario {
-    public static function insere_nas_tabelas($NOME_COMPL, $EMAIL, $SENHA): string {
+    public static function insere_nas_tabelas($NOME_COMPL, $EMAIL, $SENHA): array {
         $NOME_COMPL_DIVIDIDO = explode(separator: ' ', string: $NOME_COMPL);
         $NOME = $NOME_COMPL_DIVIDIDO[0];
         $SOBRENOME = end(array: $NOME_COMPL_DIVIDIDO);
@@ -209,7 +216,7 @@ class Cadastra_Usuario {
                 '%d','%s'
             )
             );
-        return 'Usuário de ID: ' . $wpdb->insert_id . ' criado com sucesso!';
+        return array($wpdb->insert_id, $NOME_COMPL, $SENHA);
     }
 } 
 ?>
