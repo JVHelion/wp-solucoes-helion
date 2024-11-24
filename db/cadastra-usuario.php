@@ -45,6 +45,142 @@ class Cadastra_Usuario {
                 'display_name' => $NOME . ' ' . $SOBRENOME
             ), 
             array('%s','%s','%s','%s','%s','%s','%s','%d','%s'));
+        
+        $ID_DO_USUARIO_CRIADO = $wpdb->insert_id;
+        $DADOS_CLIENTE = array(
+            array(
+                'user_id' => $ID_DO_USUARIO_CRIADO,
+                'meta_key' => 'wp_capabilities',
+                'meta_value' => 'a:1:{s:8:"customer";b:1;}',
+            ),
+            array(
+                'user_id' => $ID_DO_USUARIO_CRIADO,
+                'meta_key' => 'wp_user_level',
+                'meta_value' => '0',
+            ),
+            array(
+                'user_id' => $ID_DO_USUARIO_CRIADO,
+                'meta_key' => 'first_name',
+                'meta_value' =>  $NOME,
+            ),
+            array(
+                'user_id' => $ID_DO_USUARIO_CRIADO,
+                'meta_key' => 'last_name',
+                'meta_value' => $SOBRENOME,
+            ),
+            array(
+                'user_id' => $ID_DO_USUARIO_CRIADO,
+                'meta_key' => 'nickname',
+                'meta_value' => $NOME . ' ' . $SOBRENOME,
+            ),
+            array(
+                'user_id' => $ID_DO_USUARIO_CRIADO,
+                'meta_key' => 'billing_first_name',
+                'meta_value' => $NOME,
+            ),
+            array(
+                'user_id' => $ID_DO_USUARIO_CRIADO,
+                'meta_key' => 'billing_last_name',
+                'meta_value' => $SOBRENOME,
+            ),
+            array(
+                'user_id' => $ID_DO_USUARIO_CRIADO,
+                'meta_key' => 'billing_company',
+                'meta_value' => '',
+            ),
+            array(
+                'user_id' => $ID_DO_USUARIO_CRIADO,
+                'meta_key' => 'billing_address_1',
+                'meta_value' => '',
+            ),
+            array(
+                'user_id' => $ID_DO_USUARIO_CRIADO,
+                'meta_key' => 'billing_address_2',
+                'meta_value' => '',
+            ),
+            array(
+                'user_id' => $ID_DO_USUARIO_CRIADO,
+                'meta_key' => 'billing_city',
+                'meta_value' => '',
+            ),
+            array(
+                'user_id' => $ID_DO_USUARIO_CRIADO,
+                'meta_key' => 'billing_postcode',
+                'meta_value' => '',
+            ),
+            array(
+                'user_id' => $ID_DO_USUARIO_CRIADO,
+                'meta_key' => 'billing_country',
+                'meta_value' => 'BR',
+            ),
+            array(
+                'user_id' => $ID_DO_USUARIO_CRIADO,
+                'meta_key' => 'billing_state',
+                'meta_value' => '',
+            ),
+            array(
+                'user_id' => $ID_DO_USUARIO_CRIADO,
+                'meta_key' => 'billing_phone',
+                'meta_value' => '',
+            ),
+            array(
+                'user_id' => $ID_DO_USUARIO_CRIADO,
+                'meta_key' => 'billing_email',
+                'meta_value' => $EMAIL,
+            ),
+            array(
+                'user_id' => $ID_DO_USUARIO_CRIADO,
+                'meta_key' => 'shipping_first_name',
+                'meta_value' => $NOME,
+            ),
+            array(
+                'user_id' => $ID_DO_USUARIO_CRIADO,
+                'meta_key' => 'shipping_last_name',
+                'meta_value' => $SOBRENOME,
+            ),
+            array(
+                'user_id' => $ID_DO_USUARIO_CRIADO,
+                'meta_key' => 'shipping_company',
+                'meta_value' => '',
+            ),
+            array(
+                'user_id' => $ID_DO_USUARIO_CRIADO,
+                'meta_key' => 'shipping_address_1',
+                'meta_value' => '',
+            ),
+            array(
+                'user_id' => $ID_DO_USUARIO_CRIADO,
+                'meta_key' => 'shipping_address_2',
+                'meta_value' => '',
+            ),
+            array(
+                'user_id' => $ID_DO_USUARIO_CRIADO,
+                'meta_key' => 'shipping_city',
+                'meta_value' => '',
+            ),
+            array(
+                'user_id' => $ID_DO_USUARIO_CRIADO,
+                'meta_key' => 'shipping_postcode',
+                'meta_value' => '',
+            ),
+            array(
+                'user_id' => $ID_DO_USUARIO_CRIADO,
+                'meta_key' => 'shipping_country',
+                'meta_value' => 'BR',
+            ),
+            array(
+                'user_id' => $ID_DO_USUARIO_CRIADO,
+                'meta_key' => 'shipping_state',
+                'meta_value' => '',
+            )
+
+        );      ;
+        foreach($DADOS_CLIENTE as $linha) {
+            $wpdb->insert(
+                $wpdb->usermeta, 
+                $linha, 
+                array('%d','%s','%s'));
+        }
         return 'Usuário de ID: ' . $wpdb->insert_id . ' criado com sucesso!';
     }
 } 
