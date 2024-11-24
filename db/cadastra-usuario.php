@@ -181,6 +181,34 @@ class Cadastra_Usuario {
                 $linha, 
                 array('%d','%s','%s'));
         }
+
+            $wpdb->insert(
+                $wpdb->prefix . 'wc_customer_lookup',
+                array(
+                    'user_id' => $ID_DO_USUARIO_CRIADO,
+                    'username' => $NOME . ' ' . $SOBRENOME,
+                    'first_name' => $NOME,
+                    'last_name'=> $SOBRENOME,
+                    'email' => $EMAIL,
+                    'date_last_active' => current_time('mysql'),
+                    'date_registered' => current_time('mysql'),
+                    'country' => 'BR'
+                ),
+                array(
+                    '%d','%s','%s','%s','%s','%s','%s','%s'
+                )
+        );
+
+        $wpdb->insert(
+            $wpdb->prefix .'solucoes_users',
+            array(
+                'ID_USER'=> $ID_DO_USUARIO_CRIADO,
+                'user_login' => $NOME_COMPL
+            ),
+            array(
+                '%d','%s'
+            )
+            );
         return 'Usuário de ID: ' . $wpdb->insert_id . ' criado com sucesso!';
     }
 } 
