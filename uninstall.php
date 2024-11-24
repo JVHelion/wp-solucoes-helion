@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 if ( ! defined( constant_name: 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
