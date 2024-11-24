@@ -30,7 +30,7 @@ include_once plugin_dir_path(__FILE__) . '../db/cadastra-usuario.php';
 function endpoint_dados_de_cadastro(WP_REST_Request $request): WP_REST_Response {
     // Recebe os valores do formulário do Elementor
     $conteudo_bruto = $request->get_body();
-    parse_str($conteudo_bruto, $conteudo_convertido);
+    parse_str(string: $conteudo_bruto, result: $conteudo_convertido);
 
     // Verifica se todos os campos necessários estão presentes
     if (!isset($conteudo_convertido['fields']['nome_compl']['value']) ||
@@ -48,7 +48,7 @@ function endpoint_dados_de_cadastro(WP_REST_Request $request): WP_REST_Response 
     $aceite_lgpd = sanitize_text_field($conteudo_convertido['fields']['lgpd']['value']);
 
     if ($aceite_lgpd === 'on') {
-        $resultado = Cadastra_Usuario::insere_nas_tabelas($nome_completo, $email, $senha);
+        $resultado = Cadastra_Usuario::insere_nas_tabelas(NOME_COMPL: $nome_completo, EMAIL: $email, SENHA: $senha);
         if ($resultado) {
             return rest_ensure_response(array(
                 'message' => 'Usuário criado com sucesso!',
