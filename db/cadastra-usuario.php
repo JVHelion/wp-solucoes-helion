@@ -5,6 +5,10 @@
  * Eu tenho 99% de certeza que deixei algo errado, então boa sorte Helion do futuro na hora de debugar essa delíciosa classe de 220 linhas para achar onde tá o problema.
  * 
  * PS. Acho bom começar a olhar com carinho as atualizações do wordpress, pois a probabilidade do wp atualizar e algo quebrar é ALTISSIMO.
+ * 
+ * Helion do futuro: acabo de descobrir que existe uma função que cria usuários novos no wp: wp_create_user(). Eu sou um idiota.
+ * 
+ * Helion um pouco mais do futuro: Eu sou um idiota, mas eu sou um idiota que aprende com os erros. Então, como não tem nada de errado com essa classe aqui, vou esperar alguma coisa quebrar para implantar a função wp_create_user() no futuro, boa sorte Helion mais além do futuro.
  */
 
 class Cadastra_Usuario {

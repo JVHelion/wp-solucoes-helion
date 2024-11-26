@@ -44,6 +44,7 @@ function endpoint_dados_de_cadastro(WP_REST_Request $request): WP_REST_Response 
         ));
     }
 
+    
     $nome_completo = sanitize_text_field($conteudo_convertido['fields']['nome_compl']['value']);
     $email = sanitize_text_field($conteudo_convertido['fields']['email']['value']);
     $senha = sanitize_text_field($conteudo_convertido['fields']['senha']['value']);
@@ -58,17 +59,35 @@ function endpoint_dados_de_cadastro(WP_REST_Request $request): WP_REST_Response 
             'remember' => true
         );
 
+        
+        
         // Autentica o usuário
         $usuario = wp_signon($creds, True);
-        if ($resultado) {
+        if (is_wp_error($usuario)){
             return rest_ensure_response(array(
-                'message' => 'Usuário criado com sucesso!',
+                'message' => 'Erro ao autenticar usuário'. $usuario->get_error_message(),
             ));
         } else {
             return rest_ensure_response(array(
-                'message' => 'Erro ao criar usuário',
+                'message'=> 'Usuário logado com sucesso!',
+                
+
+        json_encode(array('HOOK' => 'wp_set_current_user')),
+        wp_set_current_user($user_id),
+
+        json_encode(array('HOOK' => 'wp_generate_auth_cookie')),
+        wp_generate_auth_cookie($user_id, time() + 1209600, 'logged_in', wp_generate_password(20, false)),
+
+        json_encode(array('HOOK' => 'wp_set_auth_cookie')),
+        wp_set_auth_cookie($user_id, True, True),
+
+        json_encode(array('HOOK' => 'WP_Session_Tokens')),
+        WP_Session_Tokens::get_instance($user_id),
             ));
         }
+
+
+
     } else {
         return rest_ensure_response(array(
             'message' => 'LGPD não aceito',
